@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hello CodeIgniter!</title>
+
+
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/TweenMax.min.js"></script>
+	<script type="text/javascript" src="js/ScrollMagic.js"></script>
+	<script type="text/javascript" src="js/animation.gsap.js"></script>
+	<script type="text/javascript" src="js/debug.addIndicators.js"></script>
+
+
+    </head>
+    <body>
+
+
+
+<style type="text/css">
+	body,html{
+	height:100%;
+	margin:0;
+	padding:0;
+	}
+
+	#blank{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background:#000;
+	}
+	#pinContainer {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background:red;
+	}
+	.panel {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		text-align: center;
+	}
+
+.blue {
+	background-color: #3883d8;
+}
+.turqoise {
+	background-color: #38ced7;
+}
+.brown {
+	background-color: #a66f28;
+}
+.bordeaux {
+	background-color: #953543;
+}
+.skin {
+	background-color: #ED9F4C;
+}
+.black {
+	background-color: #000000;
+}
+.white {
+	background-color: #FFFFFF;
+}
+.red {
+	background-color: #cf3535;
+}
+.green {
+	background-color: #22d659;
+}
+.orange {
+	background-color: #ea6300;
+}
+
+
+</style>
+
+<div id="blank"></div>
+
+<div id="pinContainer">
+	<section class="panel blue">
+		<b>ONE</b>
+	</section>
+	<section class="panel turqoise">
+		<b>TWO</b>
+	</section>
+	<section class="panel green">
+		<b>THREE</b>
+	</section>
+	<section class="panel bordeaux">
+		<b>FOUR</b>
+	</section>
+</div>
+
+
+<div id="blank"></div>
+
+
+
+
+
+
+<script>
+	$(function () { // wait for document ready
+		// init
+		var controller = new ScrollMagic.Controller();
+
+		// define movement of panels
+		var wipeAnimation = new TimelineMax()
+			.fromTo("section.panel.turqoise", 1, {x: "-100%"}, {x: "0%", ease: Linear.easeNone})  // in from left
+			.fromTo("section.panel.green",    1, {x:  "100%"}, {x: "0%", ease: Linear.easeNone})  // in from right
+			.fromTo("section.panel.bordeaux", 1, {y: "-100%"}, {y: "0%", ease: Linear.easeNone}); // in from top
+
+		// create scene to pin and link animation
+		new ScrollMagic.Scene({
+				triggerElement: "#pinContainer",
+				triggerHook: "onLeave",
+				duration: "300%"
+			})
+			.setPin("#pinContainer")
+			.setTween(wipeAnimation)
+			.addIndicators() // add indicators (requires plugin)
+			.addTo(controller);
+	});
+</script>
+
+
+
+
+    </body>
+</html>

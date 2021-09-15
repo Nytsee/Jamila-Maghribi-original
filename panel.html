@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hello CodeIgniter!</title>
+
+
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/TweenMax.min.js"></script>
+	<script type="text/javascript" src="js/ScrollMagic.js"></script>
+	<script type="text/javascript" src="js/animation.gsap.js"></script>
+	<script type="text/javascript" src="js/debug.addIndicators.js"></script>
+
+
+    </head>
+    <body>
+
+
+
+<style type="text/css">
+	body,html{
+	height:100%;
+	margin:0;
+	padding:0;
+	}
+
+	#blank{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background:#000;
+	}
+
+
+	#pinContainer {
+		width: 50%;
+		height: 100%;
+		overflow: hidden;
+		-webkit-perspective: 1000;
+		        perspective: 1000;
+		        position: relative;
+		        z-index: 1;
+	}
+	#slideContainer {
+		width: 400%; /* to contain 4 panels, each with 100% of window width */
+		height: 100%;
+	}
+	.panel {
+		height: 100%;
+		width: 25%; /* relative to parent -> 25% of 400% = 100% of window width */
+		float: left;
+	}
+
+
+.blue {
+	background-color: #3883d8;
+}
+.turqoise {
+	background-color: #38ced7;
+}
+.brown {
+	background-color: #a66f28;
+}
+.bordeaux {
+	background-color: #953543;
+}
+.skin {
+	background-color: #ED9F4C;
+}
+.black {
+	background-color: #000000;
+}
+.white {
+	background-color: #FFFFFF;
+}
+.red {
+	background-color: #cf3535;
+}
+.green {
+	background-color: #22d659;
+}
+.orange {
+	background-color: #ea6300;
+}
+
+
+#trigger{
+	position: relative;
+}
+#pin{
+	height:150px;
+	width:150px;
+	display:block;
+	margin:0 auto;
+    position: absolute;
+	 z-index: 2;
+	 opacity:1;
+	 left:70%;
+     top:0;
+}
+  .pinedBox{
+
+   }
+
+
+
+</style>
+
+<div id="blank"></div>
+
+		<div id="trigger">
+            <div id="pin" class="pinedBox red">
+				<p>Unpinned.</p>
+			</div>
+		</div>
+			
+
+
+<div id="pinContainer">
+	<div id="slideContainer">
+		<section class="panel blue">
+			<b>ONE</b>
+		</section>
+		<section class="panel turqoise">
+			<b>TWO</b>
+		</section>
+		<section class="panel green">
+			<b>THREE</b>
+		</section>
+		<section class="panel bordeaux">
+			<b>FOUR</b>
+		</section>
+	</div>
+</div>
+
+
+<div id="blank"></div>
+
+
+
+
+
+
+<script>
+	$(function () { // wait for document ready
+		// init
+		var controller = new ScrollMagic.Controller();
+
+		// define movement of panels
+		var wipeAnimation = new TimelineMax()
+			// animate to second panel
+			.to("#slideContainer", 0.5, {z: -150, delay: 1.5})		// move back in 3D space
+			.to("#slideContainer", 1,   {x: "-25%"})	// move in to first panel
+			.to("#slideContainer", 0.5, {z: 0})				// move back to origin in 3D space
+			// animate to third panel
+			.to("#slideContainer", 0.5, {z: -150, delay: 5})
+			.to("#slideContainer", 1,   {x: "-50%"})
+			.to("#slideContainer", 0.5, {z: 0})
+			// animate to forth panel
+			.to("#slideContainer", 0.5, {z: -150, delay: 5})
+			.to("#slideContainer", 1,   {x: "-75%"})
+			.to("#slideContainer", 0.5, {z: 0})
+			// animate to forth panel
+			//.to("#slideContainer", 0.5, {z: -150, delay: 5})
+			//.to("#slideContainer", 1,   {x: "-100%"})
+			//.to("#slideContainer", 0.5, {z: 0});
+		// create scene to pin and link animation
+		new ScrollMagic.Scene({
+				triggerElement: "#pinContainer",
+				triggerHook: "onLeave",
+				duration: "500%"
+			})
+			.setPin("#pinContainer")
+			.setTween(wipeAnimation)
+			.addIndicators() // add indicators (requires plugin)
+			.addTo(controller);
+	  
+
+
+	// show pin state
+		function updateBox (e) {
+			if (e.type == "enter") {
+				$("#pin").text("Pinned.");
+				 TweenMax.to('#pin', 0.5, {
+			        autoAlpha: 1
+		         });
+			} else {
+				$("#pin").text("Unpinned.");
+				 TweenMax.to('#pin', 0.5, {
+			        autoAlpha: 0
+		         });				
+			}
+		}
+
+		    var tween1 = TweenMax.to('#pin', 0.5, {
+		        backgroundColor: 'red',
+		        color: 'white'
+		    });
+
+		// build scenes
+		     new ScrollMagic.Scene({
+		            triggerElement: '#trigger',
+		            duration: "550%"
+		        })
+		        .setPin('#pin', {
+		            pushFollowers: false
+		        })
+		        .setTween(tween1)
+		        .addTo(controller)
+		        .on("enter leave", updateBox)
+		        .addIndicators();
+
+			 }); //End main function
+
+</script>
+
+
+
+
+    </body>
+</html>

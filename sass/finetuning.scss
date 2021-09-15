@@ -1,0 +1,63 @@
+@import "compass/css3";
+header .header .logo-paiement{
+  a{
+    width:100%;
+    display:block;
+    margin:0;
+    padding:0;
+    padding:0 15px;
+    background:#e5531a;
+    font-family: "Raleway",sans-serif;
+    @include transition(all 0.3s ease);
+    @include box-sizing(border-box);
+    font-size:20px;
+    color:#fff;
+    text-decoration:none;
+    line-height: 39px;
+    @include border-radius(4px);
+    img{
+      width:22px;
+      display:inline-block;
+      margin:0;
+      padding:0;
+      border:none;
+      outline:none;
+      vertical-align:middle;
+      margin:0 9px 0 0;
+      position:relative;
+      top:-2px;
+    }
+    svg fill{
+      color:#fff;
+    }
+    &:hover{
+      background: darken(#e5531a,5%);
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 1024px) {
+  header .header .logo-paiement {
+      margin-top: 12px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  header .header .logo-paiement a {
+    line-height:27px;
+    font-size:12px;
+  }
+
+  header .header .logo-paiement a img {
+    top:-1px;
+    width:19px;
+  }
+
+  header .header .logo-paiement {
+      margin-top: 10px;
+  }
+
+}
